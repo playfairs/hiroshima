@@ -1,0 +1,4 @@
+discord.py
+jishaku
+asyncpg
+psycopg2
