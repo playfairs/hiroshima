@@ -566,19 +566,21 @@ class Owner(
         except Exception as e:
             await ctx.send(f"An error occurred: {str(e)}")
 
-    @Cog.listener()
-    async def on_ready(self):
-        # Check if there's a stored RPC setting
-        rpc_setting = getattr(self.bot, 'stored_rpc', None)
-        
-        if rpc_setting:
-            # If RPC is stored, set streaming presence
-            activity = discord.Activity(
-                type=discord.ActivityType.streaming, 
-                name=rpc_setting,
-                url="https://twitch.tv/creepfully"
-            )
-            await self.bot.change_presence(activity=activity, status=discord.Status.invisible)
-        else:
-            # Default to no activity
-            await self.bot.change_presence(activity=None, status=discord.Status.invisible)
+#   @Cog.listener()
+#    async def on_ready(self):
+#        # Check if there's a stored RPC setting
+#        rpc_setting = getattr(self.bot, 'stored_rpc', None)
+#        
+#        if rpc_setting:
+#            # If RPC is stored, set streaming presence
+#            activity = discord.Activity(
+#                type=discord.ActivityType.streaming, 
+#                name=rpc_setting,
+#                url="https://twitch.tv/creepfully"
+#            )
+#             await self.bot.change_presence(activity=activity, status=discord.Status.invisible)
+#        else:
+#           # Default to no activity
+#            await self.bot.change_presence(activity=None, status=discord.Status.invisible)
+
+# Remove comments if resume invisible is enabled

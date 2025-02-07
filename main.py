@@ -4,6 +4,7 @@ import logging
 from pathlib import Path
 from discord.ext import commands
 from discord import Intents, AllowedMentions
+# from core.client import HelpNavigator
 
 from config import DISCORD
 
@@ -71,9 +72,9 @@ class Hiroshima(commands.AutoShardedBot):
         # self.db_pool = await asyncpg.create_pool(
             # port="5433",
             # database="hiroshima",
-            # user="playfair",
+            # user="postgress",
             # host="localhost",
-            # password="8462PlayfairDisplay.cc"
+            # password="admin"
         # )
 
     async def setup_hook(self):

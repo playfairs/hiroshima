@@ -63,6 +63,33 @@ class Information(Cog):
         embed.set_thumbnail(url=member.avatar.url)
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
+    @commands.command(name="av", aliases= ['pfp', 'avatar'], description="Show your avatar.")
+    async def avatar(self, ctx, member: discord.Member = None):
+        """Displays the avatar of the specified user or yourself if no one is mentioned."""
+        member = member or ctx.author
+
+        if not member.avatar:
+            await ctx.send(f"{member.mention} doesn't have an avatar, man, who runs around discord without an avatar.")
+            return
+        
+        embed = discord.Embed(title=f"{member.name}'s Avatar", color=discord.Color.blue())
+        embed.set_image(url=member.avatar.url)
+        embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url if ctx.author.avatar else self.bot.user.avatar.url)
+        await ctx.send(embed=embed)
+
+    @commands.command(name="sav", description="Show your server avatar.")
+    async def sav(self, ctx, member: discord.Member = None):
+        """Displays the server avatar of the specified user or yourself if no one is mentioned."""
+        member = member or ctx.author
+
+        if member.guild_avatar:
+            embed = discord.Embed(title=f"{member.name}'s Server Avatar", color=discord.Color.blue())
+            embed.set_image(url=member.guild_avatar.url)
+            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(f"{member.mention} does not have a server avatar.")
+
     @commands.command(name="banner", description="Show your banner.")
     async def banner(self, ctx, member: discord.Member = None):
         """Displays the banner of the specified user or yourself if no one is mentioned."""
@@ -260,3 +287,13 @@ class Information(Cog):
         embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
         
         await ctx.send(embed=embed)
+
+    @commands.command(name="?")
+    async def question_mark(self, ctx: Context):
+        """Shows the question mark. """
+        await ctx.send("That is a command by the way, and this is literally all it does.")
+
+    @commands.command(name="??")
+    async def double_question_mark(self, ctx: Context):
+        """Shows the question mark. """
+        await ctx.send("That is also a command.")
