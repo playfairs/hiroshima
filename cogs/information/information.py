@@ -225,7 +225,6 @@ class Information(Cog):
 
     @commands.command(name="bi", aliases=['botinfo'], help="Shows detailed information about the bot.")
     async def show_bot_info(self, ctx):
-        """Displays detailed information about the bot including stats and system info."""
         bot = self.bot
         
         total_members = sum(guild.member_count for guild in bot.guilds)
@@ -290,10 +289,12 @@ class Information(Cog):
 
     @commands.command(name="?")
     async def question_mark(self, ctx: Context):
-        """Shows the question mark. """
         await ctx.send("That is a command by the way, and this is literally all it does.")
 
     @commands.command(name="??")
     async def double_question_mark(self, ctx: Context):
-        """Shows the question mark. """
         await ctx.send("That is also a command.")
+
+    @commands.command(name="???")
+    async def triple_question_mark(self, ctx: Context):
+        await ctx.send("What the fuck is your obsession with question marks??")
