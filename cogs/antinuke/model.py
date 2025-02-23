@@ -37,11 +37,9 @@ class Configuration(BaseModel):
     permissions: List[Permission] = list()
 
     def __init__(self, **data):
-        # Convert strings to dictionaries if they represent a Module
         for key in ["botadd", "webhook", "emoji", "ban", "kick", "channel", "role"]:
             if isinstance(data.get(key), str):
                 try:
-                    # Attempt to load the string as JSON, assuming it's serialized data
                     data[key] = Module(**json.loads(data[key]))
                 except json.JSONDecodeError:
                     raise ValidationError(

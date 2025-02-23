@@ -26,7 +26,7 @@ class AntiNukeEvents(Cog):
 
     @loop(seconds=30)
     async def revalidate_config(self):
-        with catch(raise_error=True):  # type: ignore # noqa: F821
+        with catch(raise_error=True):
             schedule_deletion: List[int] = list()
 
             for row in await self.bot.db.fetch(
@@ -311,14 +311,12 @@ class AntiNukeEvents(Cog):
     async def on_audit_log_entry_bot_add(self, entry: AuditLogEntry):
         data: Configuration = self.config.get(entry.guild.id)
         if not data:
-            return  # logger.info(f"no config found")
+            return
         elif entry.user.id in (
             data.whitelist + data.admins + [entry.guild.owner_id, entry.guild.me.id]
         ):
-            # logger.info(f"user {entry.user} is whitelisted")
             return
         elif not data.botadd.status:
-            # logger.info(f"bot add is disabled")
             return
         await entry.target.kick(reason="Anti Bot")
         return await self.do_punishment(entry, data.botadd, data, True)

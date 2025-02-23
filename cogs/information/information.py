@@ -103,8 +103,8 @@ class Information(Cog):
             await ctx.send(embed=embed)
         else:
             await ctx.send(f"{member.mention} does not have a banner.")
-
-    @commands.command(name="whois", aliases=['userinfo', 'ui', 'info', 'whoami'], help="Show detailed information about a user.")
+            
+    @commands.command(name="who", aliases=['userinfo', 'ui', 'info', 'whoami'], description="Show detailed information about a user.")
     async def whois(self, ctx, member: discord.Member = None):
         """
         Displays detailed user information with badges, activity, and roles.
@@ -168,7 +168,7 @@ class Information(Cog):
             for activity in activities:
                 if isinstance(activity, discord.Spotify):
                     track_url = f"https://open.spotify.com/track/{activity.track_id}"
-                    listening = f"[{activity.title} by {activity.artist}]({track_url})"
+                    listening = f"[**{activity.title}** by **{activity.artist}**]({track_url})"
                 elif isinstance(activity, discord.Game):
                     playing = f"{activity.name}"
 
@@ -196,15 +196,10 @@ class Information(Cog):
             else:
                 footer_avatar_url = self.bot.user.avatar.url if self.bot.user.avatar else self.bot.user.default_avatar.url
 
-            embed = discord.Embed(color=discord.Color.dark_purple(), timestamp=datetime.utcnow())
+            embed = discord.Embed(color=0xffffff, timestamp=datetime.utcnow())
             embed.set_author(name=f"{member.display_name}{developer_title}", icon_url=avatar_url)
-
             embed.set_thumbnail(url=avatar_url)
-
-            embed.add_field(name="User ID", value=f"`{member.id}`", inline=False)
-
             embed.add_field(name="Badges", value=custom_emojis, inline=False)
-
             if listening:
                 embed.add_field(name="Listening", value=listening, inline=False)
             if playing:
@@ -215,12 +210,12 @@ class Information(Cog):
 
             embed.add_field(name="Roles", value=roles_string, inline=False)
 
-            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=footer_avatar_url)
+            embed.set_footer(text=f"User ID: {member.id}")
 
             await ctx.send(embed=embed)
 
         except Exception as e:
-            await ctx.send(f"**Error**: Something went wrong - {e}")
+            await ctx.send(f"**Error**: Something went wrong - User Profile does not contain displayable information // or does not exist")
             raise e
 
     @commands.command(name="bi", aliases=['botinfo'], help="Shows detailed information about the bot.")
